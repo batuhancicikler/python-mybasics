@@ -91,7 +91,25 @@ def repeat(s, exclaim):
     
 text = "%d küçük domuz çıktı, ya da bu %s, ve ben %s" % (3, "huf", "puf")
 
-#%d int, %s string, %f%g float point
+# %d int, %s string, %f%g float point
+
+#%%
+liste = [0,1,2,3,4,5,6,"batu","han"]
+liste2 = [55,"a","85",3.14]
+
+liste.append("aaa")
+liste2.insert(3, "pi")
+liste.extend(liste2)
+print(liste.index("batu"))
+liste2.remove(3.14)
+liste.reverse(liste.sort())
+
+
+
+
+
+
+
 
 
 
