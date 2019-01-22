@@ -79,11 +79,19 @@ for i in a:
     print(i)
 
 #%%
+
+def repeat(s, exclaim):
     
+    result = s * 3
+    if exclaim:
+        result = result + "!!!"
+    return result
 
+#%%
+    
+text = "%d küçük domuz çıktı, ya da bu %s, ve ben %s" % (3, "huf", "puf")
 
-
-
+#%d int, %s string, %f%g float point
 
 
 
