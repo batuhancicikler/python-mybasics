@@ -180,6 +180,25 @@ for key in sorted(dict1.keys()):
 print (50 * "*")
 for anahtar, değer in dict1.items(): print (anahtar, ">", değer)
 
+#%% dicts and files 2
+
+deneme = {}
+deneme["ad"] = "batuhan"
+deneme["soyad"] = "cicikler"
+deneme["yas"] = 22
+
+s = """Benim adım %(ad)s soyadım ise %(soyad)s \
+ve ben %(yas)d yaşındayım.""" %deneme # %s string için %d ise int için
+
+
+
+
+
+
+
+
+
+
 
 
 
