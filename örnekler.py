@@ -104,6 +104,44 @@ print(liste.index("batu"))
 liste2.remove(3.14)
 liste.reverse(liste.sort())
 
+#%% listenin tekrar eden elemanlarından kurtulma
+a = [5,8,7,6,5,4,2,3,1,1]
+def kurtul(nums):
+    yeni_nums = []
+    for num in nums or len(yeni_nums) == 0:
+        if num != yeni_nums:
+            yeni_nums.append(num)
+    return yeni_nums
+
+print(kurtul(a))
+
+#%% key ile sıralama
+
+strs = ["tv","Az","zz","ab","aa"]
+
+def fonks(s):
+    return s[-1]
+
+print(sorted(strs, key=fonks))
+
+#%% Tuple ler
+    
+tupleler = (1,2,"merhaba")
+print (len(tupleler))
+print (tupleler[2])
+
+tupleler = (1,2,"görüşürüz")
+print (tupleler[2])
+
+tupleler = (1,)
+
+(x, y, z) = (357,45,-2)
+
+print (z)
+
+#%%
+
+
 
 
 
