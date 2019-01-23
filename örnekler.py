@@ -113,8 +113,6 @@ def kurtul(nums):
             yeni_nums.append(num)
     return yeni_nums
 
-print(kurtul(a))
-
 #%% key ile sıralama
 
 strs = ["tv","Az","zz","ab","aa"]
@@ -153,7 +151,7 @@ caps = [s.upper() + "!!!" for s in strs]
 
 smals =  [n for n in nums if n <= 5]
 
-#%% Dicts and files
+#%% Dicts
 
 dict1 = {}
 
@@ -180,7 +178,7 @@ for key in sorted(dict1.keys()):
 print (50 * "*")
 for anahtar, değer in dict1.items(): print (anahtar, ">", değer)
 
-#%% dicts and files 2
+#%% dicts 2
 
 deneme = {}
 deneme["ad"] = "batuhan"
@@ -190,16 +188,82 @@ deneme["yas"] = 22
 s = """Benim adım %(ad)s soyadım ise %(soyad)s \
 ve ben %(yas)d yaşındayım.""" %deneme # %s string için %d ise int için
 
+dicts = {1:1, 2:2, 3:3}
+print (dicts)
 
+print(10 * "*")
 
+del dicts[2]
+print (dicts)
 
+#%% Files
 
+import codecs
 
+f = codecs.open(dosya_ismi.txt, "rU", "utf-8")
 
+for line in f:
+    f.write("Deneme textidir")
+    
+f.close()
 
+#%% verilen iki listeyi sıralayıp birleştirip return et "linear merge"
+    
+def linear_merge(liste1, liste2):
+    result = []
+    while len(liste1) and len(liste2):
+        if liste1[0] < liste2[0]:
+            result.append(liste1.pop(0))
+        else:
+            result.append(liste2.pop(0))
+    result.extend(liste1)
+    result.extend(liste2)
+    return result
 
+#%% kelime sayma
+    
+def kelime_sayma_fonksiyonu(dosya_ismi):
+    kelime_say_dict = {}
+    
+    f = open(dosya_ismi.txt, "r")
+    for line in f:
+        kelimeler = line.split()
+        for kelime in kelimeler:
+            kelime = kelime.lower() # "Ve" ile "ve" aynı sayılması için
+            
+            if not kelime in kelime_say_dict:   #ilk sefer için
+                kelime_say_dict[kelime] = 1
+            else:
+                kelime_say_dict[kelime] = kelime_say_dict[kelime] + 1
+    f.close()
+    return kelime_say_dict
 
+#%% En çok kullanılan 10 kelimeyi sırala
+    
+def kelime_yazdır(dosya_ismi):
+    kelime_say = kelime_sayma_fonksiyonu(dosya_ismi) # hangi kelimenin kaç defa kullanıldığını döndürür
+    kelimeler = sorted(kelime_say.keys())            # kelimeleri alfabetik olarak sıralar
+                                                #kelimeler key iken kullanma sayıları value
+    for kelime in kelimeler:                     # kelimeleri sıralı şekilde  print eder
+        print (kelime, kelime_say[kelime])      # kelime -> kelime sayısı
 
+def say(kelime_say_tuple):              # kelime_say daki valueleri döndürmek için SANIRIM
+    return kelime_say_tuple[1]
+
+def üste_yazdır(dosya_ismi):            # items değişkeninde kelimeleri kullanım
+    kelime_say = kelime_sayma_fonksiyonu(dosya_ismi)    # sırasına göre sıralayacak.
+    items = sorted(kelime_say.items(), key=say, reverse=True)
+    
+    for item in items[:10]:             # sıralanan listeden ilk 10 eleman yani en çok
+        print (item[0], item[1])        # kullanılan 10 kelimeyi print edecek.
+
+    
+    
+    
+    
+    
+    
+    
 
 
 
