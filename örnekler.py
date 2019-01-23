@@ -139,11 +139,46 @@ tupleler = (1,)
 
 print (z)
 
-#%%
+#%% liste comprehensions
 
+nums = [2,5,7,8]
 
+karesi = [n * n for n in nums]
 
+küpü = [n * n * n for n in nums]
 
+strs = [str(n) for n in nums]
+
+caps = [s.upper() + "!!!" for s in strs]
+
+smals =  [n for n in nums if n <= 5]
+
+#%% Dicts and files
+
+dict1 = {}
+
+dict1["a"] = "alpha"
+dict1["g"] = "gamma"
+dict1["o"] = "omega"
+
+print (dict1)
+print (dict1["a"])
+
+print (50 * "*")
+if "z" in dict1: print ("z")
+for key in dict1: print (key)
+
+print (50 * "*")
+print (dict1.keys())
+print (dict1.values())
+print (dict1.items())
+
+print (50 * "*")
+for key in sorted(dict1.keys()):
+    print (key, dict1[key])
+
+print (50 * "*")
+for anahtar, değer in dict1.items(): print (anahtar, ">", değer)
 
 
 
