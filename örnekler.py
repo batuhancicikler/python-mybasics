@@ -257,7 +257,63 @@ def üste_yazdır(dosya_ismi):            # items değişkeninde kelimeleri kull
     for item in items[:10]:             # sıralanan listeden ilk 10 eleman yani en çok
         print (item[0], item[1])        # kullanılan 10 kelimeyi print edecek.
 
+#%% Regular Expression örnekleri
+import re        
+
+strs = "örnek cümle:aslan !!"
+es = re.search(r"cümle:\w\w\w\w\w", strs)
+
+if es:
+    print("var")
+    print(es)
+    es.group()
+else:
+    print("yok")
     
+eslesme = re.search(r"iii", "iiingilizce") # eşleşme olur. eslesme.group()== "iii"
+eslesme = re.search(r"iii", "inglizce")    # eşleşme olmaz ! eslesme.group() == None
+
+eslesme = re.search(r"..g", "ping") # eşleşme olur . \ hariç her charı bulur eslesme.group() == "ing"
+
+eslesme = re.search(r"\d\d\d", "p123g") # eslesme.group() == "123"
+eslesme = re.search(r"\w\w\w", "@@abcd!!") # eslesme.group() == "abc"
+
+#%% Regular Expression Devam --- Repetition Örnekleri
+
+# "i+" i den sonra gelen i leri bulur
+
+eslesme = re.search(r"pi+", "piiiing") # eslesme.group() == "piiiii"
+eslesme = re.search(r"i+", "piigiiin") # eslesme.group() == "ii"
+
+# \s* 0 ya da daha fazla boşluk arar
+
+eslesme = re.search(r"\d\s*\d\s*\d", "xx1 2  3xx") # eslesme.group() == "1 2   3"
+eslesme = re.search(r"\d\s*\d\s*\d", "xx12 3x") # eslesme.group() == "12 3"
+
+# ^ stringin başlangıcını bulur
+
+eslesme = re.search(r"^b\w+", "futbol") # eslesme.group() == None
+eslesme = re.search(r"b\w+", "futbol") # eslesme.group() == "bol"
+
+#%% Regulas Expression Devam -- Email Örnekleri
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
     
     
     
