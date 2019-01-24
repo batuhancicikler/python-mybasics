@@ -295,12 +295,45 @@ eslesme = re.search(r"\d\s*\d\s*\d", "xx12 3x") # eslesme.group() == "12 3"
 eslesme = re.search(r"^b\w+", "futbol") # eslesme.group() == None
 eslesme = re.search(r"b\w+", "futbol") # eslesme.group() == "bol"
 
-#%% Regulas Expression Devam -- Email Örnekleri
+#%% Regular Expression Devam -- Email Örnekleri
 
+mail = "batuhan-örnek@ornek.com"
 
+eslesme = re.search(r"\w+@\w+", mail)
+print (eslesme.group()) # match = örnek@ornek "Noktayı ve tireyi" görmedi
 
+eslesme = re.search(r"[\w.-]+@[\w.-]+", mail)
+print(eslesme.group()) # match = batuhan-örnek@ornek.com
 
+#%% Regular Expression Devam -- GROUP EXTRACTION
 
+mail = "batuhan-örnek@ornek.com"
+
+eslesme = re.search(r"([\w.-]+)@([\w.-]+)", mail) #parantez ile gruplandılar
+print(eslesme.group()) #tüm mail
+print(eslesme.group(1)) #birinci grup
+print(eslesme.group(2)) #ikinci grup
+
+#findall
+
+strs = "Benim adım Batuhan, soyadım Cicikler ve ben -22- yaşındayım."
+
+satır = re.findall(r"[\w\,.-]+", strs)
+for kelime in satır:
+    print(kelime)
+    
+#%% Findall, Group Extraction with Files
+    
+f = open("test.txt", "r")
+strings = re.findall(r"(Lorem Ipsum)", f.read())
+print(strings)
+for strs in strings:
+    print(strs)
+f.close() # Eğer grup listelemesinde parantezler de match oluyorsa
+            ## o zaman parantez içindeki patternleri ?: ile başlatın
+            ## örnek (?:Lorem Ipsum)
+            
+#%%
 
 
 
