@@ -333,7 +333,8 @@ f.close() # Eğer grup listelemesinde parantezler de match oluyorsa
             ## o zaman parantez içindeki patternleri ?: ile başlatın
             ## örnek (?:Lorem Ipsum)
             
-#%%
+#%% IGNORECASE - Büyük küçük harf farkını görmezden gelir.
+## DOTALL - 
 
 
 
