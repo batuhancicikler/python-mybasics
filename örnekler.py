@@ -335,11 +335,25 @@ f.close() # Eğer grup listelemesinde parantezler de match oluyorsa
             
 #%% 
 
+import os
+import sys
+
+try:
+    file = open("filename.txt", "rU")
+    text = file.read()
+    f.close()
+except IOError:
+    sys.stderr.write("problem reading: " + "filename.txt")
 
 
-
-
-
+def List(dir):
+    filenames = os.listdir(dir)
+    for filename in filenames:
+        path = os.path.join(dir, filename)
+        print (path)
+        print (os.path.abspath(path))
+        
+#%%
 
 
 
