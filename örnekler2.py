@@ -127,9 +127,23 @@ def okek2(sayı1, sayı2):
         ortakkat += maxim
     return ortakkat
 
-#%% Fonksiyonun Kökünü bulma (Bisection)
+#%% Fibonacci dizisinin algoritması
+    
+# 01123581321345589...
+    
+def fibo():
+    start = 0
+    print(start)
+    start2 = 1
+    print(start2)
+    for i in range(0,10): #range kadar basamağı getiricek
+        fibb = start + start2
+        print (fibb)
+        start = start2
+        start2 = fibb
+    return fibb
 
-
+#%%
 
 
 
