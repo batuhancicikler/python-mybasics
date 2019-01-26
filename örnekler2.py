@@ -143,7 +143,6 @@ def fibo():
         start2 = fibb
     return fibb
 
-#%%
 
 
 
