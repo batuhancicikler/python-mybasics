@@ -131,18 +131,24 @@ def okek2(sayı1, sayı2):
     
 # 01123581321345589...
     
-def fibo():
+def fibo(x):
     start = 0
     print(start)
     start2 = 1
     print(start2)
-    for i in range(0,10): #range kadar basamağı getiricek
+    for i in range(0,x): #range kadar basamağı getiricek
         fibb = start + start2
         print (fibb)
         start = start2
         start2 = fibb
     return fibb
 
+def fibo2(n):
+    a, b = 0, 1
+    while a < n:
+        print(a, end=" ")
+        a, b = b, a + b
+    print()
 
 
 
