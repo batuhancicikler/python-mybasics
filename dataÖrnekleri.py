@@ -40,6 +40,29 @@ def writing(a, b=5, vintage="blabla"):
 d = {"a":5,"b":10, "vintage":"NOTblabla"}
 writing(**d)
 
+#%% newton method
+
+def root(n):
+    roots = n/2
+    for k in range(20):
+        roots = (1/2) * (roots + (n/roots))
+    return roots
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
