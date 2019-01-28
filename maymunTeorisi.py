@@ -23,7 +23,7 @@ def skor(hedef, test):
 
 #main içinde algoritmayı, istenilen kelimeyi verene kadar çalıştırdık
 def main():
-    hedefstr = "batuhan"
+    hedefstr = "bat"
     yenistr = gen(50)   # gen fonksiyonunu 50 harflik randomlar şeklinde çalıştırıyoruz.
     skorr2 = 0          # istediğimiz hedefe ne kadar yaklaştığımızı tutacak.
     bestskor = skor(hedefstr, yenistr) # sürekli skor fonksiyonunu tutucak ve döngüyü onun üzerine kurucaz
@@ -33,5 +33,6 @@ def main():
             skorr2 = bestskor
         yenistr = gen(50)
         bestskor = skor(hedefstr, yenistr)
-        
+    print(bestskor, yenistr)
+    
 main()

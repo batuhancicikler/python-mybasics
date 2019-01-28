@@ -48,7 +48,16 @@ def root(n):
         roots = (1/2) * (roots + (n/roots))
     return roots
 
+#%%
 
+liste = [1,2,3,4]
+def yapya(liste):
+    strs = ""
+    for i in liste:
+        a = str(i)
+        strs = strs + a
+    return strs
+    
 
 
 
