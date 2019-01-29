@@ -352,24 +352,6 @@ def List(dir):
         path = os.path.join(dir, filename)
         print (path)
         print (os.path.abspath(path))
-        
-#%% Class örneği
-        
-class Bina:
-    türü = ""
-    değeri = 0
-    büyüklüğü = ""
-    
-    def tanım(self):
-        tanımı = ("%s türündeki %s büyüklükteki evin değeri %d TL"%(self.türü,self.büyüklüğü,self.değeri))
-        return tanımı
-    
-ev1 = Bina()
-ev1.türü = "Müstakil"
-ev1.büyüklüğü = "50 metrekare"
-ev1.değeri = 150000
-
-print(ev1.tanım())
 
 
 #%% sıralama
