@@ -110,6 +110,22 @@ class NotKapısı(Unary):
         else:
             return 1
         
+class VeNotKapısı(VeKapısı):
+    
+    def mantıkKapısı(self):
+        if super().mantıkKapısı() == 1:
+            return 0
+        else:
+            return 1
+        
+class VeyaNotKapısı(VeyaKapısı):
+    
+    def mantıkKapısı(self):
+        if super().mantıkKapısı() == 1:
+            return 0
+        else:
+            return 1
+
 class Connector:        # Bir kapıdan diğerine bağlamak için
     
     def __init__(self, fgate, tgate):
@@ -124,13 +140,16 @@ class Connector:        # Bir kapıdan diğerine bağlamak için
         return self.togate
 
 
-g1 = VeKapısı("Gate 1")             # g1 kapısının sonucu ile g2 kapısının sonucunu
-g2 = VeKapısı("Gate 2")             # Connertor c1 ve c2 sayesinde Veya kapısına alıp 
-g3 = VeyaKapısı("Gate 3")           # Not kapısından c3 ile geçiriyor.
-g4 = NotKapısı("Gate 4")
+def main():
+    g1 = VeKapısı("Kapı 1")
+    g2 = VeyaNotKapısı("Kapı 2")
+    c1 = Connector(g1, g2)
+    print(g2.getOutput())
+    
+main()
 
-c1 = Connector(g1, g3)
-c2 = Connector(g2, g3)
-c3 = Connector(g3, g4)
 
-g4.getOutput()
+
+
+
+
