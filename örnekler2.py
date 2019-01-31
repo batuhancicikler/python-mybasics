@@ -420,12 +420,53 @@ def anagramCheck3(s1, s2):
 
 print("\nÜçüncü anagram fonksiyonu : ", anagramCheck3("batu", "abtu"))
 
-#%%
+#%% List Time Analysis
 
 
+
+def test1():
+    liste = []
+    for i in range(1000):
+        liste = liste + [i]
+        
+def test2():
+    liste = []
+    for i in range(1000):
+        liste.append(i)
+        
+def test3():
+    liste = [i for i in range(1000)]
     
+def test4():
+    liste = list(range(1000))
     
+import timeit
     
+Timer = timeit.Timer
+
+print("\n")
+t1 = Timer("test1()", "from __main__ import test1")
+print("concat", t1.timeit(number=1000), "milisaniye")
+
+t2 = Timer("test2()", "from __main__ import test2")
+print("append", t2.timeit(number=1000), "milisaniye")
+
+t3 = Timer("test3()", "from __main__ import test3")
+print("comprehension", t3.timeit(number=1000), "milisaniye")
+
+t4 = Timer("test4()", "from __main__ import test4")
+print("list range", t4.timeit(number=1000), "milisaniye")
+    
+print("\n")
+print("*" * 50)
+print("\n")
+    
+popzero = Timer("x.pop(0)", "from __main__ import x")
+popend = Timer("x.pop()", "from __main__ import x")
+
+x = list(range(200000))
+print("x.pop(0) : ", popzero.timeit(number=1000))
+print("x.pop() : ", popend.timeit(number=1000))
 
 
 
