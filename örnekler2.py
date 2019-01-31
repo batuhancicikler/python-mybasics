@@ -136,19 +136,19 @@ def fibo(x):
     print(start)
     start2 = 1
     print(start2)
-    for i in range(0,x): #range kadar basamağı getiricek
+    for i in range(0,x): 
         fibb = start + start2
         print (fibb)
         start = start2
         start2 = fibb
     return fibb
 
-def fibo2(n):
+def fibo2(n):   #basamak olarrak
     a, b = 0, 1
-    while a < n:
+    while len(str(a)) < n:
         print(a, end=" ")
         a, b = b, a + b
-    print()
+    return a
 
 #%% Algoritma Analizleri
     
@@ -250,6 +250,178 @@ for i in range(0, len(player_kart)):
     else:
         print("Kazanan Yok")
         
+#%%     Big-O Notation ---- O(n^2)
+
+import time
+from random import randrange
+
+def findMin(liste):
+    minim = liste[0]
+    for i in liste:
+        en_kücük = True
+        for j in liste:
+            if i > j:
+                en_kücük = False
+        if en_kücük:
+            minim = i
+    return minim
+
+#mylist = [2,1,5,4,8,6,2,0]
+#print(findMin(mylist))
+
+for listSize in range(1000, 10001, 1000):
+    liste = [randrange(100000) for x in range (listSize)]
+    start = time.time()
+    print(findMin(liste))
+    end = time.time()
+    print("%d size, time %f" %(listSize, end - start))
+    
+    """
+        69
+        1000 size, time 0.065962
+        10
+        2000 size, time 0.266887
+        30
+        3000 size, time 0.612190
+        0
+        4000 size, time 1.100937
+        13
+        5000 size, time 1.654031
+        11
+        6000 size, time 2.375903
+        3
+        7000 size, time 3.227387
+    """
+#%% Big-O Notation       
+def findMin2(liste2):
+    minim = liste2[0]
+    for i in liste2:
+        if i < minim:
+            minim = i
+    return minim
+
+for listSize in range(1000, 10001, 1000):
+    liste2 = [randrange(100000) for x in range (listSize)]
+    start = time.time()
+    print(findMin2(liste2))
+    end = time.time()
+    print("%d size, time %f" %(listSize, end - start))
+    
+    """
+        254
+        1000 size, time 0.000998
+        60
+        2000 size, time 0.000000
+        12
+        3000 size, time 0.000998
+        176
+        4000 size, time 0.001003
+        7
+        5000 size, time 0.000000
+        15
+        6000 size, time 0.000000
+        27
+        7000 size, time 0.001091
+    """
+    
+#%% Anagram string check
+    
+"""
+        Bu çözüm tamamen O(n^2) dir. s1 tüm s2 lere bakar sonra bir sonraki s1 elemanıyla
+        baştan başlar. Eğer string çok uzun olursa kodun çalışma süresi artacaktır.
+"""
+    
+def anagramCheck(s1, s2):
+    liste = list(s2)
+    check = True
+    pos = 0
+    
+    # s1 in 0 ıncı elemanını, aynısını bulana kadar s2 nin tüm elemanlarıyla kıyaslar
+    
+    while pos < len(s1) and check:
+        pos2 = 0
+        buldu = False
+        while pos2 < len(liste) and not buldu:
+            if s1[pos] == liste[pos2]:
+                buldu = True
+            else:
+                pos2 = pos2 + 1
+                
+        # eğer s1 in elemanlarından birisi listedekiyle eşleşirse listedeki eşleyen elemanı None yapar
+        if buldu:
+            liste[pos2] = None
+        else:
+            check = False
+            
+        pos = pos + 1
+        
+    return check
+        
+print("\nİlk anagram fonksiyonu : ", anagramCheck("batu", "abtu"))
+
+"""
+        Çözüm 2; Sort and Compare... s1 ve s2 leri kıyaslamaksızın alfabetik olarak sıralarsak
+        eğer uzunlukları ve elemanları eşit ise anagramdır. Ancak sort methodu
+        kullanmak ta bir bakıma O(n^2) ya da O(n log n) dir. Yani çözüm 1 ve çözüm 2
+        nin de order of magnitute si aynıdır.
+"""
+
+def anagramCheck2(s1, s2):
+    liste1 = list(s1)
+    liste2 = list(s2)
+    
+    liste1.sort()
+    liste2.sort()
+    
+    pos = 0
+    eslesme = True
+    
+    while pos < len(s1) and eslesme:
+        if liste1[pos] == liste2[pos]:
+            pos = pos + 1
+        else:
+            eslesme = False
+            
+    return eslesme
+    
+print("\nİkinci anagram fonksiyonu : ", anagramCheck2("batu", "abtu"))
+    
+"""
+        Çözüm 3; Count and Compare... Bu yöntemde anagram olup olmadıklarını
+        karşılaştırmak için a ları b leri c lerin aynı sayıda olup olmadığını kontrol eder.
+        türkçe de 29 harf olduğu için c1 ve c2 29 elemanlı listeler olarak hazırlanır.
+        
+        stringleri check etmek dışında sadece 29 adım atıyor, bu yüzden O(n) yani linear diyebiliriz.
+"""
+
+def anagramCheck3(s1, s2):
+    
+    c1 = [0] * 29
+    c2 = [0] * 29
+    
+    for i in range(len(s1)):
+        pos = ord(s1[i]) - ord("a")     # s1 in i elemanının unicodesi - "a" nın unicodesi, yani 
+        c1[pos] = c1[pos] + 1           # s1[i] ile a eşit ise pos 0 olacak
+        
+    for i in range(len(s2)):
+        pos = ord(s2[i]) - ord("a")
+        c2[pos] = c2[pos] + 1
+        
+    j = 0
+    check = True
+    
+    while j < 29 and check:
+        if c1[j] == c2[j]:
+            j = j + 1
+        else:
+            check = False
+            
+    return check
+
+print("\nÜçüncü anagram fonksiyonu : ", anagramCheck3("batu", "abtu"))
+
+#%%
+
 
     
     
