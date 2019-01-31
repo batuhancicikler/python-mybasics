@@ -137,8 +137,57 @@ while True:
     
 print("En büyük çarpım : ", max(liste))
 print("Bitince kalan basamak sayısı : ", len(veri))
+
+#%% 1000 basamaklı fibonacci sayısının indexi
+
+def fibo():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
         
+for index, num in enumerate(fibo()):
+    if len(str(num)) == 1000:
+        print(index)
+        break
+    
+#%% 100 sayısının faktoriyelindeki rakamların toplamı
+
+def factoriyel(n):
+    fact = 1
+    sumFac = 0
+    for i in range(1,n + 1):
+        fact = fact * i
+    for j in str(fact):
+        sumFac = sumFac + int(j)
+    return sumFac
         
+## YAA DAAA
+    
+def euler20(n):
+    sayac = 1
+    for i in range(2, n + 1):
+        sayac *= i
+    sayac = sum(map(int, str(sayac)))
+    return sayac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         
         
