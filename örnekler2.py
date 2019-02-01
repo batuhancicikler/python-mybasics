@@ -468,15 +468,130 @@ x = list(range(200000))
 print("x.pop(0) : ", popzero.timeit(number=1000))
 print("x.pop() : ", popend.timeit(number=1000))
 
+#%% List - Dict compare
+
+import random
+
+for i in range(1000, 10001, 2000):
+    t = timeit.Timer("random.randrange(%d) in x" % i, "from __main__ import random,x")
+    
+    x = list(range(i))
+    lst_time = t.timeit(number = 1000)
+    
+    x = {j : None for j in range(i)}
+    d_time = t.timeit(number=1000)
+    
+    print("Number   Liste Süresi  Dict Süresi")
+    print("%d,    %f,     %f" % (i, lst_time, d_time))
+
+#%% Stack örnekleri  
+
+class Stack:
+    def __init__(self):
+        self.items = []
+        
+    def isEmpty(self):
+        return self.items == []
+    
+    def push(self, item):
+        #self.items.append(item)
+        self.items.insert(0, item)
+        
+    def pop(self):
+        #return self.items.pop()
+        return self.items.pop(0)
+    
+    def peek(self):
+        #return self.items[len(self.items) - 1]
+        return self.items[0]
+    
+    def size(self):
+        return len(self.items) 
+    
+    def reverse(self):
+        reversedlist = []
+        while not self.isEmpty():
+            reversedlist.append(self.items.pop(0))
+        return reversedlist        
+
+s = Stack()
+print("is empty : ", s.isEmpty())
+s.push(4)
+s.push("Dog")
+print("peek : ", s.peek())
+print("pop : ", s.pop())
+print("size : ", s.size())
+print("is empty : ", s.isEmpty())
+s.push("Batuhan")
+s.push(22)
+print("reversed : ", s.reverse())
 
 
 
+def reversemyStr(myStr):
+    yeni_stack = Stack()
+    for char in myStr:
+        yeni_stack.push(char)
+    revstr = ""
+    while not yeni_stack.isEmpty():
+        revstr = revstr + yeni_stack.pop()
+    return revstr
+
+def parantezDenge(parantez):
+    a = Stack()
+    denge = True
+    index = 0
+    while index < len(parantez) and denge:
+        sembol = parantez[index]
+        if sembol in "({[":
+            a.push(sembol)
+        else:
+            if a.isEmpty():
+                denge = False
+            else:
+                top = a.pop()
+                if not matches(top, sembol):
+                    denge = False
+        index = index + 1
+        
+    if denge and a.isEmpty():
+        return True
+    else:
+        return False
+
+def matches(openp, closep):     # Boolean döndürür
+    opens = "([{"
+    closes = ")]}"
+    return opens.index(openp) == closes.index(closep)
+
+print(parantezDenge("(()(()())())"))
+print(parantezDenge("{[(())]"))
+print(parantezDenge("(()"))
+print(parantezDenge("()()())))"))
+print(parantezDenge("([{()}])"))
 
 
 
+def convertTo(num, base):
+    binn = Stack()
+    while num > 0:
+        binn.push(num % base)
+        num = num // base
+    
+    binString = ""
+    while not binn.isEmpty():
+        binString = binString + str(binn.pop())
+    return binString
+    
+print(convertTo(233, 2))  
+    
+    
+    
+    
+    
+    
 
-
-
+#%%
 
 
 
