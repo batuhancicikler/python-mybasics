@@ -108,8 +108,8 @@ liste.reverse(liste.sort())
 a = [5,8,7,6,5,4,2,3,1,1]
 def kurtul(nums):
     yeni_nums = []
-    for num in nums or len(yeni_nums) == 0:
-        if num != yeni_nums:
+    for num in nums:
+        if num not in yeni_nums:
             yeni_nums.append(num)
     return yeni_nums
 
