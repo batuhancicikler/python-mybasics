@@ -171,6 +171,18 @@ def euler20(n):
     sayac = sum(map(int, str(sayac)))
     return sayac
 
+#%% problem 16 power digit sum
+    
+def power(n): # n 1000 olacak
+    kare = 2**n
+    toplam = 0
+    for i in str(kare):
+        toplam += int(i)
+    return toplam
+    
+#%%
+
+    
 
 
 
