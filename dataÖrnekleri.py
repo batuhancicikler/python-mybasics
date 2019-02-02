@@ -58,7 +58,7 @@ def yapya(liste):
         strs = strs + a
     return strs
 
-#%%
+
 
 
 
