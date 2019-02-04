@@ -380,8 +380,67 @@ skorlar = np.vstack([x, np.ones_like(x), 0.2 * np.ones_like(x)])
 
 plt.plot(x, softmax(skorlar).T, linewidth=2)
 plt.show()
+
+#%% atılan 2 zarın toplamlarının 7 den büyük gelme olasılığı
+
+import numpy as np
+import random
+
+def sim(n = 100000):
+    count = 0
+    for i in range(n):
+        dice1 = random.randint(1, 6)
+        dice2 = random.randint(1, 6)
+        toplam = dice1 + dice2
+        
+        if toplam > 7:
+            count += 1
+    return count/n
+print("atılan 2 zarın toplamlarının 7 den büyük gelme olasılığı : ", np.round(sim()*100,2), "%")
+
+#%% 30 yeşil, 20 kırmızı, 10 beyaz top olan kutudan 5 tane top çekince
+ ## çekilen topların 3 beyaz 2 kırmızı ya da hepsinin aynı renk gelme olasılığı
+ 
+dic = {}
+for i in range(60):
+    if i < 10:
+        dic[i] = "beyaz"
+    elif i > 9 and i < 30:
+        dic[i] = "kırmızı"
+    else:
+        dic[i] = "yeşil"
+        
+sart1 = 0
+sart2 = 0
+n = 100000
+
+for i in range(n):
+    liste = []
+    for i in range(5):
+        liste.append(dic[random.randint(0, 59)])
+        
+    liste = np.array(liste)
     
+    beyaz = sum(liste == "beyaz")
+    kırmızı = sum(liste == "kırmızı")
+    yeşil = sum(liste == "yeşil")
     
+    if beyaz == 3 and kırmızı == 2:
+        sart1 += 1
+        
+    if (beyaz or kırmızı or yeşil) == 5:
+        sart2 += 1
+        
+print("3 beyaz 2 kırmızı olasılığı : ", sart1 / n * 100, "%")
+print("5 aynı renk olasılığı : ", sart2 / n * 100, "%")
+
+
+
+
+            
+            
+            
+            
     
     
     
