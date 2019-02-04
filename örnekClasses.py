@@ -228,29 +228,42 @@ def infixtoPostfix(expr):
     prec["("] = 1
     opStack = Stack()
     postfixListe = []
-    semboller = expr.split()
+    semboller = [i for i in expr]
     
     for sembol in semboller:
         if sembol in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" or sembol in "0123456789":
             postfixListe.append(sembol)
+            
         elif sembol == "(":
             opStack.push(sembol)
+            
         elif sembol == ")":
             sonSembol = opStack.pop()
+            
             while sonSembol != "(":
                 postfixListe.append(sonSembol)
                 sonSembol = opStack.pop()
         else:
-            while (not opStack.isEmpty()) and (prec[opStack.peek()] >= prec[sembol]):
-                postfixListe.append(opStack.pop())
-            opStack.push(sembol)
+            try:
+                while (not opStack.isEmpty()) and (prec[opStack.peek()] >= prec[sembol]):
+                    postfixListe.append(opStack.pop())
+                opStack.push(sembol)
+                
+            except KeyError:
+                print("\n")
+                print("*" * 50)
+                print("INPUTUNUZ HATALI, İŞLEMLER ARASINDA BOŞLUK BIRAKMAYIN")
+                print("*" * 50)
+                print("\n")
+                
     while not opStack.isEmpty():
         postfixListe.append(opStack.pop())
+        
     return " ".join(postfixListe)
 
-print("Infix to Postfix", infixtoPostfix("( ( A + B ) * C ) / D"))
-print("Infix to Postfix", infixtoPostfix("A * B + ( C / D )"))
-print("Infix to Postfix", infixtoPostfix("9 + 3 * 5 / ( 6 - 4 )"))
+print("Infix to Postfix", infixtoPostfix("((A+B)*C)/D"))
+print("Infix to Postfix", infixtoPostfix("A*B+(C / D)"))
+print("Infix to Postfix", infixtoPostfix("9+3*5/(6-4)"))
 
     ### postfix üzerinden işlem yapma ###
     
@@ -311,6 +324,12 @@ class Queue:
     
     def size(self):
         return len(self.items)
+    
+    def reverse(self):
+        liste = []
+        for i in range(len(self.items)):
+            liste.append(self.items.pop())
+        return liste
 
 q = Queue()
 print("is empty     : ", q.isEmpty())
@@ -321,6 +340,10 @@ print("size         : ", q.size())
 print("dequeue      : ", q.dequeue())
 print("size         : ", q.size())
 print("items        : ", q.items)
+print("enqueue      : ", q.enqueue(55))
+print("enqueue      : ", q.enqueue(True))
+print("items        : ", q.items)
+print("reversed     : ", q.reverse())
 
 import random
 
