@@ -434,8 +434,53 @@ for i in range(n):
 print("3 beyaz 2 kırmızı olasılığı : ", sart1 / n * 100, "%")
 print("5 aynı renk olasılığı : ", sart2 / n * 100, "%")
 
+#%%
+import random
 
+hamleler = ["taş", "kağıt", "makas", "çıkış"]
 
+def taskagıtmakas():
+    print("Taş Kağıt Makas Oyunu")
+    print("Hamleler : ", hamleler)
+    kullanıcı_skor = 0
+    pc_skor = 0
+    
+    while True:
+        kullanıcı = str(input("Hamleni Oyna : "))
+        if kullanıcı not in hamleler:
+            print("Yanlış hamle")
+        else:
+            if kullanıcı != "çıkış":
+                pc_secim = random.choice(["taş","kağıt","makas"])
+                print("Bilgisayarın hamlesi : ", pc_secim)
+                
+                if kullanıcı == pc_secim:
+                    print("Berabere !")
+                elif kullanıcı == "taş" and pc_secim == "kağıt":
+                    print("Kaybettin !")
+                    pc_skor += 1
+                elif kullanıcı == "taş" and pc_secim == "makas":
+                    print("Kazandın !")
+                    kullanıcı_skor += 1
+                elif kullanıcı == "kağıt" and pc_secim == "taş":
+                    print("Kazandın !")
+                    kullanıcı_skor += 1
+                elif kullanıcı == "kağıt" and pc_secim == "makas":
+                    print("Kaybettin !")
+                    pc_skor += 1
+                elif kullanıcı == "makas" and pc_secim == "kağıt":
+                    print("Kazandın !")
+                    kullanıcı_skor += 1
+                elif kullanıcı == "makas" and pc_secim == "taş":
+                    print("Kaybettin !")
+                    pc_skor += 1
+                else:
+                    pass
+            else:
+                print("{} defa kazandın, {} defa kaybettin" .format(kullanıcı_skor, pc_skor))
+                break
+    
+taskagıtmakas()
 
             
             
