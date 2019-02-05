@@ -35,6 +35,7 @@ def sim(kapılar, degistir, verb):
         if verb:
             print("Sunucu {}. kapıyı açtı" .format(sunucu_ac + 1))
     
+    # koşulun doğru olup olmadığını kontrol eder.. yanlış ise AssertionError gönderir
     assert len(kapalı_kapılar) == 2
     
     #yarışmacı değiştirmek istiyor mu ?
