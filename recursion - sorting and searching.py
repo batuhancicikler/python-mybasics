@@ -261,9 +261,157 @@ def seqSearch(liste, item):
     return found
 
 test = [1,5,2,6,4,"batu"]
-print(seqSearch(test, 5))
-print(seqSearch(test, "batu"))
-print(seqSearch(test, 55))
+print("sequential(ardışık) search : ",seqSearch(test, 5))
+print("sequential(ardışık) search : ",seqSearch(test, "batu"))
+print("sequential(ardışık) search : ",seqSearch(test, 55))
+
+"""
+    Ancak liste sıralı bir şekilde olursa mesela [1,2,3,5,6] ve biz 4 ü aratmak istersek tüm elemanlara bakmak
+    mantıksız, o yüzden eğer aradığımız eleman o sıradaki elemandan küçük ise kodu durdurmamızda fayda var
+"""
+
+def orderedseqSearch(liste, item):
+    pos = 0         # index numarası
+    found = False
+    stop = False
+    while pos < len(liste) and not found and not stop:
+        if liste[pos] == item:
+            found = True
+        else:
+            if liste[pos] > item:
+                stop = True
+            else:
+                pos = pos + 1
+    return found
+test2 = [2,3,6,7,15,28,33,52,53,55]
+print("ordered(sıralı) sequential(ardışık) search : ",orderedseqSearch(test2, 14))
+print("ordered(sıralı) sequential(ardışık) search : ",orderedseqSearch(test2, 33))
+
+"""
+    listede n kadar eleman olduğu için her ne kadar O(n/2) gibi görünsede O(n) olduğunu
+    unutma.
+    listeden bir elemanı ararken ilk elemana baktığında geriye n-1 kadar eleman kalıyor.
+    Tüm elemanlara bakmak yerine Binary Search yapmak daha mantıklı, ortadaki iteme bakılır,
+    eğer aradığımız item o ise kod biter eğer o itemden büyük ise kalan yarıma bakabiliriz.
+"""
+#%% Binary Search
+
+"""
+    listeden bir elemanı ararken ilk elemana baktığında geriye n-1 kadar eleman kalıyor.
+    Tüm elemanlara bakmak yerine Binary Search yapmak daha mantıklı, ortadaki iteme bakılır,
+    eğer aradığımız item o ise kod biter eğer o itemden büyük ise kalan yarıma bakabiliriz.
+    
+    liste = [1,2,3,4,5,6,7,8,9,10] 6 yı ararken ortası 5 olarak alırız, 6>5 olduğu için
+    bir sonraki ortayı 7 olarak alırız 6<7 olduğu için ordan da 6 ya ulaşırız.
+    
+    böylece karşılaştırmak için kalan eleman sayısı n/2, n/4, n/8... şeklinde gider
+"""
+
+def binarySearch(liste, item):
+    if len(liste) <= 1:
+        if liste[0] == item:
+            return True
+        else:
+            return False
+    else:
+        orta = len(liste) // 2
+        if liste[orta] == item:
+            return True
+        else:
+            if item < liste[orta]:
+                return binarySearch(liste[:orta], item)
+            else:
+                return binarySearch(liste[orta:], item)
+
+liste = [1,2,3,4,5,6]
+print("binary search 1 : ", binarySearch(liste, 1))
+print("binary search 4 : ", binarySearch(liste, 4))
+print("binary search 3 : ", binarySearch(liste, 3))
+print("binary search 10 : ", binarySearch(liste, 10))
+print("binary search 7 : ", binarySearch(liste, 7))
+print("binary search 5 : ", binarySearch(liste, 5))
+print("binary search 2 : ", binarySearch(liste, 2))
+print("binary search 6 : ", binarySearch(liste, 6))
+
+#%% Hashing
+
+def hashing(strs, tablesize):
+    toplam = 0
+    for i in range(len(strs)):
+        toplam = toplam + ord(strs[i])
+    return toplam % tablesize
+
+"""
+    put -> yeni value ekler, eğer key de value var ise üstüne yazar
+    get -> key deki value yi return eder
+    del -> kel-value çiftini siler kullanımı : map del[key]
+    len() -> map ta store edilen key-value çiftlerinin sayısını return eder
+    in -> key in map ise True döner değil ise False
+"""
+
+class HashTable():
+    def __init__(self):
+        self.size = 11
+        self.slots = [None] * self.size
+        self.data = [None] * self.size
+        
+    def push(self, key, data):
+        hashvalue = self.hashfonksiyon(key, len(self.slots)) # girilen değer % table size işlemini
+                                                                # hashvalue(index) değerine atamak
+        if self.slots[hashvalue] == None:         # hashvalue boş ise key ve data yerleştirilir
+            self.slots[hashvalue] = key
+            self.data[hashvalue] = data
+        else:                                   
+            if self.slots[hashvalue] == key:
+                self.data[hashvalue] = data  #replace
+            else:                               #hashvalue boş değil ise ve key de bizim belirlediğimizden
+                nextslot = self.rehash(hashvalue, len(self.slots)) # farklı ise;
+                while self.slots[nextslot] != None and self.slots[nextslot] != key: #(hashvalue + 1) % 11
+                    nextslot = self.rehash(nextslot, len(self.slots)) #ile yeni bir hash değeri
+                #döndürürüz, eğer yeni hash değeri de boş değil ve key farklıysa aynı işlemi yeniden yaparız
+                if self.slots[nextslot] == None: # ykarıda elde ettiğimiz nextslot indexi boş mu ?
+                    self.slots[nextslot] = key  # boş ise data ve keyi oraya yerleştir.
+                    self.data[nextslot] = data
+                else:                           # boş değil ise datayı yerleştir
+                    self.data[nextslot] = data 
+                    
+    def hashfonksiyon(self, key, size):
+        return key%size
+        
+    def rehash(self, oldhash, size):
+        return (oldhash + 1)%size
+    
+    def get(self, key):
+        startslot = self.hashfonksiyon(key, len(self.slots))
+        
+        data = None
+        stop = False
+        found = False
+        pos = startslot
+        
+        while self.slots[pos] != None and not found and not stop:
+            if self.slots[pos] == key:
+                found = True
+                data = self.data[pos]
+            else:
+                pos = self.rehash(pos, len(self.slots))
+                if pos == startslot:
+                    stop = True
+        return data
+                        # getitem ve setitem ile dictlerde çalıştığımız gibi [] ile veri ekleyebilceğiz 
+    def __getitem__(self, key):
+        return self.get(key)
+    def __setitem__(self, key, data):
+        self.push(key, data)
+    
+h = HashTable()
+h[54] = "cat"   # key --- value 54 kısmı push methodunun keyi iken "cat" ise valuesi
+h[12] = "batuhan"
+h[56] = "dog"
+print("slots : ", h.slots)
+print("data : ", h.data)
+print("get : ", h[56])
+        
 
 #%% Levenshtein distance -- iki string arasındaki fark bir cümleyi diğeri ile
     # aynı yapana kadar yapman gereken silme, ekleme, değiştirmeler ile belirlenir

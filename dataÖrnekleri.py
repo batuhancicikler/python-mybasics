@@ -50,14 +50,13 @@ def root(n):
 
 #%%
 
-liste = [1,2,3,4]
-def yapya(liste):
-    strs = ""
+liste=[1,1,2,4,5,4,2,1,5,6,5]
+def ax(liste):
+    yeni= []
     for i in liste:
-        a = str(i)
-        strs = strs + a
-    return strs
-
+        if i not in yeni:
+            yeni.append(i)
+    return yeni
 
 
 
