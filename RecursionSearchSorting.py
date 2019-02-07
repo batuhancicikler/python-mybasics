@@ -445,10 +445,168 @@ def levenshtein(a, b):
 
 print(levenshtein("batugg5", "batafew23"))
     
-    
-    
+#%% bubble sort
 
+def bubbleSort(liste):
+    for passnum in range(len(liste) - 1, 0, -1):
+        #print(liste)
+        for i in range(passnum):
+            if liste[i] > liste[i + 1]:
+                #print(liste)
+                temp = liste[i]
+                liste[i] = liste[i + 1]
+                liste[i + 1] = temp
+                
+"""
+    ilk for da 8 döner ardından 0 dan 8. indexe kadar ikinci for ile en büyük rakamı
+    listenin sonuna temp ile taşır ardından ikinci fordaki i i + 1 değeriyle tekrar en sona kadar 
+    bir sonrakine baka baka gider en büyüğü sona doğru taşır bu böyle tüm indexlere bakana kadar
+    devam eder.
+"""
+liste = [3,6,5,4,2,3,1,8,7]
+bubbleSort(liste)
+print(liste)
+
+def shortbubbleSort(liste):
+    degis = True
+    passnum = len(liste) - 1
     
+    while passnum > 0 and degis:
+        degis = False
+        #print(liste)
+        for i in range(passnum):
+            if liste[i] > liste[i + 1]:
+                degis = True
+                #print(liste)
+                temp = liste[i]
+                liste[i] = liste[i + 1]
+                liste[i + 1] = temp
+        passnum -= 1
+
+shortbubbleSort(liste)
+print(liste)
+
+#%% Selection Sorting
+
+def selectionSort(liste):
+    for doldur in range(len(liste) -1, 0, -1):
+        maxim = 0
+        for loc in range(1, doldur + 1):
+            if liste[loc] > liste[maxim]:
+                maxim = loc
+        temp = liste[doldur]
+        liste[doldur] = liste[maxim]
+        liste[maxim] = temp
+"""
+    Bu yöntem önce listenin son indexini tutar ve liste içindeki en büyük eleman ile
+    son elemanı yer değiştirir. Ardından son - 1 elemana bakar ve geri kalanlar arasından
+    en büyük eeman ile yer değiştirir
+"""
+liste = [45,12,20,25,1,7,54,30,0]
+selectionSort(liste)
+print(liste)
+    
+#%% Insertion Sort
+
+def insertSort(liste):
+    for index in range(1, len(liste)):
+        current = liste[index]
+        pos = index
+        while pos > 0 and liste[pos - 1] > current: # örn. liste 0. index 1. indexten büyük iken
+            liste[pos] = liste[pos - 1]
+            pos = pos - 1
+        liste[pos] = current
+        
+liste = [45,12,20,25,1,7,54,30,0]
+insertSort(liste)
+print(liste)
+
+#%% Shell Sort
+
+def shellSort(liste):
+    sublistsay = len(liste) // 2  # listenin uzunluğuna göre sublistlerin sayısı değişir
+    while sublistsay > 0:
+        for start in range(sublistsay):     # 0 dan 4 e daha sonra 0dan 2 ye daha sonra 0 dan 1 e kadar
+            gapinsertSorting(liste, start, sublistsay) #yapacak. aşağıdaki listeye göre.
+        print("subliste : ", sublistsay, "liste : ", liste)
+        sublistsay = sublistsay // 2
+        
+def gapinsertSorting(liste, start, gap):
+    for i in range(start + gap, len(liste), gap):
+        current = liste[i]
+        pos = i
+        
+        while pos >= gap and liste[pos - gap] > current:
+            liste[pos] = liste[pos - gap]
+            pos = pos - gap
+            
+        liste[pos] = current
+
+"""
+    Insert Sorting gibi ancak tek tek yerine grup grup bakıyor
+"""
+
+liste = [45,12,20,25,1,7,54,30,0]
+shellSort(liste)
+print(liste)
+
+#%% Merge Sort
+
+"""
+    Binary tree gibi önce listeyi 2 ye böler sonra o 2 yi 2 ye böler her biri tek 
+    kalana kadar böler.. ardından ikiye bölünenleri küçük ve büyük elemanların
+    yerlerini değiştirerek biraraya topluyoruz
+"""
+
+def mergeSort(liste):
+    print("Bölünüyor...", liste)
+    if len(liste) > 1:
+        mid = len(liste) // 2
+        sol = liste[:mid]
+        sag = liste[mid:]
+        
+        mergeSort(sol)
+        mergeSort(sag)
+        
+        j = 0
+        k = 0
+        i = 0
+        while i < len(sol) and j < len(sag):
+            # küçük olanı sola büyük olanı sağa alıyoruz
+            if sol[i] < sag[j]:
+                liste[k] = sol[i]
+                i = i + 1
+            else:
+                liste[k] = sag[j]
+                j = j + 1
+            k = k + 1
+        
+        while i < len(sol):
+            liste[k] = sol[i]
+            i = i + 1
+            k = k + 1
+            
+        while j < len(sag):
+            liste[k] = sag[j]
+            j = j + 1
+            k = k + 1
+    print("Birleşiyor...", liste)
+    
+liste = [45,12,20,25,1,7,54,30,0]
+mergeSort(liste)
+print(liste)
+
+#%% Quick Sort
+
+
+
+
+
+
+
+
+
+
 
 
 
