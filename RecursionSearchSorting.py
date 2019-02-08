@@ -246,7 +246,7 @@ def triangle(n, lol=None):
         new_row = [1] + [sum(i) for i in zip(prev_row, prev_row[1:])] + [1]
         return triangle(n - 1, lol + [new_row])
     
-#%% Sequential Search
+#%% Sequential Search O(n)
         
 ## index sıralı şeklinde sıralanmış listelerden bir elemanı aramak senquential searcha örnek
         
@@ -294,7 +294,7 @@ print("ordered(sıralı) sequential(ardışık) search : ",orderedseqSearch(test
     Tüm elemanlara bakmak yerine Binary Search yapmak daha mantıklı, ortadaki iteme bakılır,
     eğer aradığımız item o ise kod biter eğer o itemden büyük ise kalan yarıma bakabiliriz.
 """
-#%% Binary Search
+#%% Binary Search O(log n) worst case
 
 """
     listeden bir elemanı ararken ilk elemana baktığında geriye n-1 kadar eleman kalıyor.
@@ -445,7 +445,7 @@ def levenshtein(a, b):
 
 print(levenshtein("batugg5", "batafew23"))
     
-#%% bubble sort
+#%% bubble sort O(n^2)
 
 def bubbleSort(liste):
     for passnum in range(len(liste) - 1, 0, -1):
@@ -486,7 +486,7 @@ def shortbubbleSort(liste):
 shortbubbleSort(liste)
 print(liste)
 
-#%% Selection Sorting
+#%% Selection Sorting O(n^2)
 
 def selectionSort(liste):
     for doldur in range(len(liste) -1, 0, -1):
@@ -506,7 +506,7 @@ liste = [45,12,20,25,1,7,54,30,0]
 selectionSort(liste)
 print(liste)
     
-#%% Insertion Sort
+#%% Insertion Sort O(n^2)
 
 def insertSort(liste):
     for index in range(1, len(liste)):
@@ -521,7 +521,7 @@ liste = [45,12,20,25,1,7,54,30,0]
 insertSort(liste)
 print(liste)
 
-#%% Shell Sort
+#%% Shell Sort O(n) -> <- O(n^2)
 
 def shellSort(liste):
     sublistsay = len(liste) // 2  # listenin uzunluğuna göre sublistlerin sayısı değişir
@@ -550,7 +550,7 @@ liste = [45,12,20,25,1,7,54,30,0]
 shellSort(liste)
 print(liste)
 
-#%% Merge Sort
+#%% Merge Sort O(nlog n)
 
 """
     Binary tree gibi önce listeyi 2 ye böler sonra o 2 yi 2 ye böler her biri tek 
@@ -596,10 +596,45 @@ liste = [45,12,20,25,1,7,54,30,0]
 mergeSort(liste)
 print(liste)
 
-#%% Quick Sort
+#%% Quick Sort O(nlog n) ya da O(n^2) eğer split bölgesi listenin ortasına yakın değil ise
 
+def quicksort(liste):
+    quicksortHelp(liste, 0, len(liste) - 1)
 
+def quicksortHelp(liste, first, last):
+    if first < last:
+        split = partition(liste, first, last)
+        quicksortHelp(liste, first, split - 1)
+        quicksortHelp(liste, split + 1, last)
 
+def partition(liste, first, last):
+    pivot = liste[first]
+    
+    left = first + 1
+    right = last
+    
+    done = False
+    while not done:
+        while left <= right and liste[left] <= pivot:
+            left = left + 1
+        while liste[right] >= pivot and right >= left:
+            right = right - 1
+        
+        if right < left:
+            done = True
+        else:
+            temp = liste[left]
+            liste[left] = liste[right]
+            liste[right] = temp
+    
+    temp = liste[first]
+    liste[first] = liste[right]
+    liste[right] = temp
+    return right
+
+liste = [45,12,20,25,1,7,54,30,0]
+quicksort(liste)
+print(liste)
 
 
 
