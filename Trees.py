@@ -336,11 +336,55 @@ class BinarySearchTree:
                 self._put(key, val, current.left)
             else:
                 current.left = TreeNode(key, val, parent = current)
+                self.update(current.left)
         else:
             if current.hasRight():
                 self._put(key, val, current.right)
             else:
                 current.right = TreeNode(key, val, parent = current)
+                self.update(current.right)
+                
+    def update(self, node):
+        if node.balance > 1 or node.balance < -1:
+            self.rebalance(node)
+            return
+        if node.parent != None:
+            if node.isLeft():
+                node.parent.balance += 1
+            elif node.isRight():
+                node.parent.balance -= 1
+            if node.parent.balance != 0:
+                self.update(node.parent)
+    
+    def rotateLeft(self,rotRoot):
+        newRoot = rotRoot.right
+        rotRoot.right = newRoot.left
+        if newRoot.left != None:
+            newRoot.left.parent = rotRoot
+        newRoot.parent = rotRoot.parent
+        if rotRoot.isRoot():
+            self.root = newRoot
+        else:
+            if rotRoot.isLeft():
+                rotRoot.parent.right = newRoot
+        newRoot.left = rotRoot
+        rotRoot.parent = newRoot
+        rotRoot.balance = rotRoot.balance + 1 - min(newRoot.balance, 0)
+        newRoot.balance = newRoot.balance + 1 - min(rotRoot.balance, 0)
+        
+    def rebalance(self, node):
+        if node.balance < 0:
+            if node.right.balance > 0:
+                self.rotateRight(node.right)
+                self.rotateLeft(node)
+            else:
+                self.rotateLeft(node)
+        elif node.balance > 0:
+            if node.left.balance < 0:
+                self.rotateLeft(node.left)
+                self.rotateRight(node)
+            else:
+                self.rotateRight(node)
                 
     # put methodu ile birlikte __setitem__ kullanarak [] operatörünü uygulayabiliriz
     # örnek : myTree["abc"] = 558122 [] = key, 558122 = value
@@ -543,7 +587,6 @@ benimTree[3] = "Samsun"
 print(benimTree[2])
 print(benimTree.length())
 
-#%%
 
 
 
